@@ -3,12 +3,13 @@
 ## Introduction
 Testing applications built on fastapi is undoubtedly easy. FastAPI provides mechanisms to ensure that tests can be adequetely written and run in for the application. Testing in FastAPI is made possible by Starlette amongst others, which provides an ASGI test client that allows for simulating requests to the FastAPI application. This test client is used by FastAPI's TestClient to send requests and test the API endpoints.
 
+
 ## Testing in FastAPI
 
 ### Install Test Dependencies 
 
 For testing, we primarily need two dependencies. 
-- HTTPX: The HTTPX sends HTTP requests to the API endpoints, allowing for verification of responses and manipulates the API behaviour. It sends requests, receives responses, and enables the assertions of the status code, response data, and other details. HTTPX is often used through the TestClient provided by Starlette. 
+- HTTPX: The HTTPX sends HTTP requests to the API endpoints, allowing for verification of responses and manipulates the API behaviour. It sends requests, receives responses, and enables the assertions of the status code, response data, and other details. HTTPX is often used through the TestClient or AsyncClient (for asyncronous applications) provided by Starlette. 
 
 - Pytest: Pytest is a python testing framework for writing and running tests. With Pytest, you can verify the code behavior and catch any errors or bugs.
 
@@ -73,7 +74,7 @@ The test replicates the User creation using all our dependencies; `pytest`, `htt
 
 `pytest` essemtially models the entire user creation following how it is defined in the function. We send the POST request like we would do with a testing tool like Postman. We have Client.post doing that, using the `httpx` to send an HTTP POST request to the `/user/` endpoint of the FastAPI app, allowing us test the full request and response. 
 
-Since FastAPI is built on `Starlette`, Starlette handles the actual routing, request, and response generation during the test. When `AsyncClient` sends the request, Starlette receives it, routes it through FastAPI’s dependency system and middleware stack, executes the `create_user` endpoint, and returns the response, which is then verified by the test.
+Since FastAPI is built on `Starlette`, Starlette handles the actual routing, request, and response generation during the test. When `AsyncClient` sends the request, Starlette receives it, routes it through FastAPI’s dependency system and executes the `create_user` endpoint, and returns the response, which is then verified by the test.
 
 To verify that our test pass, we use the `assert` statement. The assert statement is from pytest, and we use it to verify that a certain condition is true. If the condition is false, the test fails and we get an error. In the route logic, our status code is `status_code=status.HTTP_201_CREATED` so we assert precisely that in the test. If we get a falsy, the test will fail. 
 
