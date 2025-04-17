@@ -69,3 +69,18 @@
     - Validating the QR code content and ensuring it matches the item ID.
     - Handling cases where the category does not exist while creating an inventory item.
     - Enhanced test coverage for QR code generation and barcode scanning.
+
+  ## CHANGES MADE TO DEV BRANCH
+  ### NEW ROUTES
+  - `scan_optical_label` -> *`mercury/routes/scan`* for optical labeling to handle QR code and barcode scanning, returning order or inventory details based on scan result / Development route for users to test out the function.
+
+  - `generate_barcode_for_order` -> *`mercury/routes/order`* for generating a barcode for an order for interanl vetting / update.
+
+  - `generate_qrcode_for_order`  -> *`mercury/routes/order`* for users to scan-to-track order(s)
+
+  ### RENAMED ROUTES
+
+  - changed `@order_router.post("/{item_id}/barcode")` to `@order_router.post("/{order_id}/barcode")` -> *`mercury/routes/order`*
+
+  - Changed `@order_router.post("/{item_id}/qrcode")` to `@order_router.post("/{order_id}/qrcode")` -> *`mercury/routes/order`*
+
